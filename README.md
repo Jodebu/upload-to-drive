@@ -2,6 +2,7 @@
 This is a **GitHub action** to upload a file or a folder (zipped) to **Google Drive** using a Google Service Account.
 
 ## Table of Contents
+- [Changes](#changes)
 - [Setup](#setup)
     - [Google Service Account (GSA)](#google-service-account-(GSA))
     - [Share Drive folder with the GSA](#share-drive-folder-with-the-GSA)
@@ -14,10 +15,15 @@ This is a **GitHub action** to upload a file or a folder (zipped) to **Google Dr
 - [Outputs](#outputs)
     - [`link`](#link)
 - [Usage Examples](#usage-examples)
-    - [Simple usage file workflow example](#simple-usage-file-workflow-example)
-    - [Simple usage folder workflow example](#simple-usage-folder-workflow-example)
-    - [Complex usage workflow example](#complex-usage-workflow-example)
+    - [Simple file workflow example](#simple-file-workflow-example)
+    - [Simple folder workflow example](#simple-folder-workflow-example)
+    - [Simple link workflow example](#simple-link-workflow-example)
+    - [Complex workflow example](#complex-workflow-example)
 - [Documentation](#documentation)
+
+## Changes
+### v1.1
+Added an output with a link to the Drive folder.
 
 ## Setup
 This section lists the requirements to make this action work and how to meet them.
@@ -114,7 +120,7 @@ jobs:
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 
-### Simple usage folder workflow example
+### Simple folder workflow example
 This a very simple workflow example that checks out the repo and uploads the `public` folder as a zip file to a Drive folder every time there is a push to master.
 ```yaml
 name: Store public in Drive
@@ -136,7 +142,39 @@ jobs:
           credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
-### Complex usage workflow example
+
+### Simple link workflow example
+This a very simple workflow example that checks out the repo and uploads the `public` folder as a zip file to a Drive folder every time there is a push to master. After that, it sends a Telegram message using [Telegram Message Notify](https://github.com/marketplace/actions/telegram-message-notify) with a link to the folder.
+```yaml
+name: Store public in Drive
+on:
+  push: { branches: [master] }
+jobs:
+  buildAndTestForSomePlatforms:
+    name: Upload public to drive
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # Upload to Drive
+      - name: Upload public folder to Google Drive
+        uses: Jodebu/upload-to-drive@master
+        id: driveUpload
+        with:
+          target: public
+          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          folder: <YOUR_DRIVE_FOLDER_ID>
+      # Send Telegram message
+      - name: Send link to file
+        uses: appleboy/telegram-action@master
+        with:
+            to: ${{ secrets.TELEGRAM_TO }}
+            token: ${{ secrets.TELEGRAM_TOKEN }}
+            message: File uploaded to ${{ steps.driveUpload.outputs.link }}
+```
+
+### Complex workflow example
 This is a little bit more complex workflow example. This is actually a simplified version of the current workflow that I use in my unity projects to test, compile, and upload several platform builds at a time.
 ```yaml
 name: Dev build
