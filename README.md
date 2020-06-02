@@ -91,8 +91,7 @@ This section lists all outputs this action produces.
 A link to the Drive folder.
 
 ### `link`
-The local path to the file or folder you want to upload.
->If the path to a folder is given, it will be zipped before upload.
+A link to the Drive folder.
 
 ## Usage Examples
 This section contains some useful examples.
