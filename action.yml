@@ -17,7 +17,7 @@ inputs:
     default: null
 outputs:
   link: link
-  description: 'A link to the Drive folder'
+    description: 'A link to the Drive folder'
 runs:
   using: 'node12'
   main: 'dist/index.js'
