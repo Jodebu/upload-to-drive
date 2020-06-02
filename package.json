@@ -13,8 +13,8 @@
   "author": "Yayo Acosta",
   "license": "ISC",
   "dependencies": {
+    "@actions/core": "^1.2.4",
     "archiver": "^4.0.1",
-    "dotenv": "^8.2.0",
     "googleapis": "^51.0.0"
   },
   "devDependencies": {

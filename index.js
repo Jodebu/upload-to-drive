@@ -1,16 +1,16 @@
-require('dotenv').config
+const actions = require('@actions/core');
 const { google } = require('googleapis');
 const fs = require('fs');
 const archiver = require('archiver');
-const {
-  INPUT_EMAIL: email, //Google Service Account email
-  INPUT_KEY: key, //Google Service Account private key
-  INPUT_FOLDER: folder,//Google Drive folder to upload the file/folder to
-  INPUT_TARGET: target //Local path to the file/folder to upload
-} = process.env;
 
+const credentials = actions.getInput('credentials', { required: true });
+const folder = actions.getInput('folder', { required: true });
+const target = actions.getInput('target', { required: true });
+
+const credentialsJSON = JSON.parse(atob(credentials));
 const scopes = ['https://www.googleapis.com/auth/drive'];
-const auth = new google.auth.JWT(email, null, key, scopes);
+const auth = new google.auth.JWT(credentialsJSON.client_email, null, credentialsJSON.private_key, scopes)
+  .catch(e => console.error("Authentication error"));
 const drive = google.drive({ version: 'v3', auth });
 
 let filename = target.split('/').pop();
@@ -19,13 +19,13 @@ async function main() {
   if (fs.lstatSync(target).isDirectory()){
     filename = `${target}.zip`
 
-    console.log(`Folder detected in ${target}`)
-    console.log(`Zipping ${target}...`)
+    actions.info(`Folder detected in ${target}`)
+    actions.info(`Zipping ${target}...`)
 
     zipDirectory(target, filename)
     .then(() => uploadToDrive())
     .catch(e => {
-      console.error('Zip failed');
+      actions.error('Zip failed');
       throw e;
     });
   }
@@ -45,7 +45,7 @@ function zipDirectory(source, out) {
 
     stream.on('close',
       () => {
-        console.log(`Folder successfully zipped: ${archive.pointer()} total bytes written`);
+        actions.info(`Folder successfully zipped: ${archive.pointer()} total bytes written`);
         return resolve();
       });
     archive.finalize();
@@ -53,7 +53,7 @@ function zipDirectory(source, out) {
 }
 
 function uploadToDrive() {
-  console.log('Uploading file to Goole Drive...');
+  actions.info('Uploading file to Goole Drive...');
   drive.files.create({
     requestBody: {
       name: filename,
@@ -62,11 +62,11 @@ function uploadToDrive() {
     media: {
       body: fs.createReadStream(`${target}${fs.lstatSync(target).isDirectory() ? '.zip' : ''}`)
     }
-  }).then(() => console.log('File uploaded successfully'))
+  }).then(() => actions.info('File uploaded successfully'))
     .catch(e => {
       console.error('Upload failed');
       throw e;
     });
 }
 
-main().catch(e => { throw e });
+main().catch(e => actions.setFailed(e));

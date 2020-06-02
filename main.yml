@@ -2,14 +2,11 @@ name: 'Upload to Goole Drive'
 description: 'Uploads a file or a folder to Google Drive'
 author: 'Yayo Acosta'
 inputs: 
-  email:
-    description: 'Google Service Account email'
-    required: true
-  key:
-    description: 'Google Service Account private key'
+  credentials:
+    description: 'Google Service Account credentials'
     required: true
   folder:
-    description: 'Google Drive folder to upload the file/folder to'
+    description: 'Google Drive folder ID to upload the file/folder to'
     required: true
   target:
     description: 'Local path to the file/folder to upload'
