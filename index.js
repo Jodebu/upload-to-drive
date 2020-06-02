@@ -7,7 +7,7 @@ const credentials = actions.getInput('credentials', { required: true });
 const folder = actions.getInput('folder', { required: true });
 const target = actions.getInput('target', { required: true });
 
-const credentialsJSON = JSON.parse(atob(credentials));
+const credentialsJSON = JSON.parse(Buffer.from(credentials, 'base64').toString());
 const scopes = ['https://www.googleapis.com/auth/drive'];
 const auth = new google.auth.JWT(credentialsJSON.client_email, null, credentialsJSON.private_key, scopes)
   .catch(e => console.error("Authentication error"));
