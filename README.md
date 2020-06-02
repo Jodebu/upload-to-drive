@@ -14,7 +14,7 @@ This is a **GitHub action** to upload a file or a folder (zipped) to **Google Dr
 - [Usage Examples](#usage-examples)
     - [Simple usage file workflow example](#simple-usage-file-workflow-example)
     - [Simple usage folder workflow example](#simple-usage-folder-workflow-example)
-    - [Comlex usage workflow example](#complex-usage-workflow-example)
+    - [Complex usage workflow example](#complex-usage-workflow-example)
 - [Documentation](#documentation)
 
 ## Setup
@@ -22,7 +22,7 @@ This section lists the requirements to make this action work and how to meet the
 
 ### Google Service Account (GSA)
 First of all you will need a **Google Service Account** for your project. Service accounts are just specific Google account types that are used by services instead of people.  
-To make one go to [Service Accounts](https://console.cloud.google.com/apis/credentials) in the IAM and administration section of the **Google Cloud Plattform** dashboard and create a new project or choose the one you are already using for your current project.
+To make one go to [*Service Accounts*](https://console.cloud.google.com/apis/credentials) in the *IAM and administration* section of the **Google Cloud Plattform** dashboard and create a new project or choose the one you are already using for your current shenanigans.
 Click on create new service account and continue with the process. At the end you will get the option to generate a key, **we need this key so store it safely**. It's a json file whith the following structure:
 ```json
 {
@@ -45,13 +45,13 @@ While you are here, take a note of **the folder's ID**, the last long number in 
 
 ### Store credentials as GitHub secrets
 This action needs your GSA credentials to properly authenticate with Google and we don't want anybody to take a peek at them, right? Go to the **Secrets** section of your repo and add a new secret for your credentials. As per GitHub's recommendation, we will store any complex data (like your fancy JSON credentials) as a base64 encoded string.  
-You can encode jour `.json` file easily into a new `.txt` file using any bash terminal:
+You can encode jour `.json` file easily into a new `.txt` file using any bash terminal (just don't forget to change the placeholders with the real name of your credentials file and and the desired output):
 ```bash
-$ base64 <CREDENTIALS_FILENAME>.json > <ENCODED_CREDENTIALS_FILENAME>.txt
-
+$ base64 CREDENTIALS_FILENAME.json > ENCODED_CREDENTIALS_FILENAME.txt
 ```
-The contents of newly generated `.txt` file is what we have to procure as a value for our secret.
-><span style="color:red">**IMPORTANT**:</span> This action assumes that the credentials are stored as a base64 encoded string. If that's not the case, the action will **fail**.
+The contents of the newly generated `.txt` file is what we have to procure as a value for our secret.
+
+>![](https://via.placeholder.com/15/f03c15/000000?text=+) **IMPORTANT**: This action assumes that the credentials are stored as a base64 encoded string. If that's not the case, the action will **fail**.
 
 ## Inputs
 This section lists all inputs this action can take.
@@ -95,7 +95,6 @@ jobs:
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
-
       # Upload to Drive
       - name: Upload README.md to Google Drive
         uses: Jodebu/upload-to-drive@master
@@ -119,7 +118,6 @@ jobs:
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
-
       # Upload to Drive
       - name: Upload public folder to Google Drive
         uses: Jodebu/upload-to-drive@master
@@ -129,7 +127,7 @@ jobs:
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 ### Complex usage workflow example
-This a little bit more complex workflow example. This is currently a simplified version of the workflow that I use in my unity projects to test, compile, and upload several platform builds at a time.
+This is a little bit more complex workflow example. This is actually a simplified version of the current workflow that I use in my unity projects to test, compile, and upload several platform builds at a time.
 ```yaml
 name: Dev build
 on:
