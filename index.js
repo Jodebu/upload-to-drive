@@ -11,15 +11,20 @@ const folder = actions.getInput('folder', { required: true });
 const target = actions.getInput('target', { required: true });
 /** Optional name for the zipped file */
 const name = actions.getInput('name', { required: false });
+/** Link to the Drive folder */
+const link = 'link';
 
 const credentialsJSON = JSON.parse(Buffer.from(credentials, 'base64').toString());
 const scopes = ['https://www.googleapis.com/auth/drive'];
 const auth = new google.auth.JWT(credentialsJSON.client_email, null, credentialsJSON.private_key, scopes);
 const drive = google.drive({ version: 'v3', auth });
 
+const driveLink = `https://drive.google.com/drive/folders/${folder}`
 let filename = target.split('/').pop();
 
 async function main() {
+  actions.setOutput(link, driveLink);
+
   if (fs.lstatSync(target).isDirectory()){
     filename = `${name || target}.zip`
 
@@ -36,6 +41,7 @@ async function main() {
   else
     uploadToDrive();
 }
+
 /**
  * Zips a directory and stores it in memory
  * @param {string} source File or folder to be zipped
