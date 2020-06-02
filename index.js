@@ -9,8 +9,7 @@ const target = actions.getInput('target', { required: true });
 
 const credentialsJSON = JSON.parse(Buffer.from(credentials, 'base64').toString());
 const scopes = ['https://www.googleapis.com/auth/drive'];
-const auth = new google.auth.JWT(credentialsJSON.client_email, null, credentialsJSON.private_key, scopes)
-  .catch(e => console.error("Authentication error"));
+const auth = new google.auth.JWT(credentialsJSON.client_email, null, credentialsJSON.private_key, scopes);
 const drive = google.drive({ version: 'v3', auth });
 
 let filename = target.split('/').pop();
@@ -64,7 +63,7 @@ function uploadToDrive() {
     }
   }).then(() => actions.info('File uploaded successfully'))
     .catch(e => {
-      console.error('Upload failed');
+      actions.error('Upload failed');
       throw e;
     });
 }
