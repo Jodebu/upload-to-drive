@@ -1,4 +1,4 @@
-name: 'Upload to Goole Drive'
+name: 'Upload to Google Drive'
 description: 'Uploads a file or a folder to Google Drive'
 author: 'Yayo Acosta'
 inputs: 

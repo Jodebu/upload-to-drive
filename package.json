@@ -1,7 +1,7 @@
 {
   "name": "upload-to-drive",
   "version": "1.0.0",
-  "description": "Github action to upload builds to Google Drive",
+  "description": "Github action to upload files or folders to Google Drive",
   "repository": {
     "type": "git",
     "url": "https://github.com/Jodebu/upload-to-drive"
