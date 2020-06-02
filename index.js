@@ -60,7 +60,7 @@ function uploadToDrive() {
       parents: [folder]
     },
     media: {
-      body: fs.createReadStream(`${target}${fs.lstatSync(target).isDirectory() ? '.zip' : ''}`)
+      body: fs.createReadStream(`${name || target}${fs.lstatSync(target).isDirectory() ? '.zip' : ''}`)
     }
   }).then(() => actions.info('File uploaded successfully'))
     .catch(e => {

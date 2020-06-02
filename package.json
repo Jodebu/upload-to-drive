@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "ncc build index.js -C -m -o dist"
+    "build": "ncc build index.js -C -m -o dist"
   },
   "author": "Yayo Acosta",
   "license": "ISC",
