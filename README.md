@@ -41,7 +41,7 @@ Click on create new service account and continue with the process. At the end yo
 
 ### Share Drive folder with the GSA
 Go to your **Google Drive** and find the folder you want your files to be uploaded to and share it with the GSA. You can find your service account email address in the `client_email` property of your GSA credentials.
-While you are here, take a note of **the folder's ID**, the last long number in your address bar if you have the folder opened in your browser.
+While you are here, take a note of **the folder's ID**, the long set of characters after the last `/` in your address bar if you have the folder opened in your browser.
 
 ### Store credentials as GitHub secrets
 This action needs your GSA credentials to properly authenticate with Google and we don't want anybody to take a peek at them, right? Go to the **Secrets** section of your repo and add a new secret for your credentials. As per GitHub's recommendation, we will store any complex data (like your fancy JSON credentials) as a base64 encoded string.  
