@@ -1,0 +1,29 @@
+name: Generate and publish documentation
+on:
+  push:
+    branches: [master]
+jobs:
+  documentation:
+    name: Generate and publish documentation
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Generate docs
+      - name: Generate documentation
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./
+          output_dir: ./docs
+      
+      # Publis docs
+      - name: Publish documentation
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: ./docs
