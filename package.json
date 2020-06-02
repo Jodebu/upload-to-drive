@@ -1,0 +1,23 @@
+{
+  "name": "upload-to-drive",
+  "version": "1.0.0",
+  "description": "Github action to upload builds to Google Drive",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jodebu/upload-to-drive"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build index.js -C -m -o dist"
+  },
+  "author": "Yayo Acosta",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "archiver": "^4.0.1",
+    "googleapis": "^51.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3"
+  }
+}
