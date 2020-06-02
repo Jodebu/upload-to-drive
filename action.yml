@@ -13,7 +13,11 @@ inputs:
     required: true
   name:
     description: 'Optional name for the zipped file'
-    required: null
+    required: false
+    default: null
+outputs:
+  link: 'link'
+  description: 'A link to the Drive folder'
 runs:
   using: 'node12'
   main: 'dist/index.js'

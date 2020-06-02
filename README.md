@@ -11,6 +11,8 @@ This is a **GitHub action** to upload a file or a folder (zipped) to **Google Dr
     - [`folder`](#folder)
     - [`target`](#target)
     - [`name`](#name)
+- [Outputs](#outputs)
+    - [`link`](#link)
 - [Usage Examples](#usage-examples)
     - [Simple usage file workflow example](#simple-usage-file-workflow-example)
     - [Simple usage folder workflow example](#simple-usage-folder-workflow-example)
@@ -77,6 +79,14 @@ Default: `null`
 The name you want your zip file to have.
 >- If the `target` input is a file, this input will be ignored.  
 >- If not provided, it will default to the folder's name.
+
+## Outputs
+This section lists all outputs this action produces.
+A link to the Drive folder.
+
+### `link`
+The local path to the file or folder you want to upload.
+>If the path to a folder is given, it will be zipped before upload.
 
 ## Usage Examples
 This section contains some useful examples.
