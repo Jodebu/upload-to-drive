@@ -6,6 +6,7 @@ const archiver = require('archiver');
 const credentials = actions.getInput('credentials', { required: true });
 const folder = actions.getInput('folder', { required: true });
 const target = actions.getInput('target', { required: true });
+const name = actions.getInput('name', { required: false });
 
 const credentialsJSON = JSON.parse(Buffer.from(credentials, 'base64').toString());
 const scopes = ['https://www.googleapis.com/auth/drive'];
@@ -16,7 +17,7 @@ let filename = target.split('/').pop();
 
 async function main() {
   if (fs.lstatSync(target).isDirectory()){
-    filename = `${target}.zip`
+    filename = `${name || target}.zip`
 
     actions.info(`Folder detected in ${target}`)
     actions.info(`Zipping ${target}...`)

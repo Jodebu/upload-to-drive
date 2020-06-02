@@ -11,9 +11,12 @@ inputs:
   target:
     description: 'Local path to the file/folder to upload'
     required: true
+  name:
+    description: 'Optional name for the zipped file'
+    required: null
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: 'node12'
+  main: 'dist/index.js'
 branding:
   icon: 'upload-cloud'  
   color: 'orange'
