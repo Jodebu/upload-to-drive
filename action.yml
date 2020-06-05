@@ -16,7 +16,7 @@ inputs:
     required: false
     default: null
 outputs:
-  link: link
+  link:
     description: 'A link to the Drive folder'
 runs:
   using: 'node12'
