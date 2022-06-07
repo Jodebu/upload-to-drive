@@ -115,7 +115,7 @@ jobs:
         uses: Jodebu/upload-to-drive@master
         with:
           target: README.md
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 
@@ -138,7 +138,7 @@ jobs:
         uses: Jodebu/upload-to-drive@master
         with:
           target: public
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 
@@ -162,7 +162,7 @@ jobs:
         id: driveUpload
         with:
           target: public
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
       # Send Telegram message
       - name: Send link to file
