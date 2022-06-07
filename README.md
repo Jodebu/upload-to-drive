@@ -4,7 +4,7 @@ This is a **GitHub action** to upload a file or a folder (zipped) to **Google Dr
 ## Table of Contents
 - [Changes](#changes)
 - [Setup](#setup)
-    - [Google Service Account (GSA)](#google-service-account-(GSA))
+    - [Google Service Account (GSA)](#google-service-account-gsa))
     - [Share Drive folder with the GSA](#share-drive-folder-with-the-GSA)
     - [Store credentials as GitHub secrets](#store-credentials-as-github-secrets)
 - [Inputs](#inputs)
@@ -96,7 +96,7 @@ A link to the Drive folder.
 ## Usage Examples
 This section contains some useful examples.
 
-### Simple usage file workflow example
+### Simple file workflow example
 This a very simple workflow example that checks out the repo and uploads the `README.md` file to a Google Drive folder every time there is a push to master.
 ```yaml
 name: Store readme in Drive
