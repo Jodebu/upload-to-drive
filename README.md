@@ -4,7 +4,7 @@ This is a **GitHub action** to upload a file or a folder (zipped) to **Google Dr
 ## Table of Contents
 - [Changes](#changes)
 - [Setup](#setup)
-    - [Google Service Account (GSA)](#google-service-account-(GSA))
+    - [Google Service Account (GSA)](#google-service-account-gsa))
     - [Share Drive folder with the GSA](#share-drive-folder-with-the-GSA)
     - [Store credentials as GitHub secrets](#store-credentials-as-github-secrets)
 - [Inputs](#inputs)
@@ -30,8 +30,8 @@ This section lists the requirements to make this action work and how to meet the
 
 ### Google Service Account (GSA)
 First of all you will need a **Google Service Account** for your project. Service accounts are just specific Google account types that are used by services instead of people.  
-To make one go to [*Service Accounts*](https://console.cloud.google.com/apis/credentials) in the *IAM and administration* section of the **Google Cloud Plattform** dashboard and create a new project or choose the one you are already using for your current shenanigans.
-Click on create new service account and continue with the process. At the end you will get the option to generate a key, **we need this key so store it safely**. It's a json file whith the following structure:
+To make one go to [*Service Accounts*](https://console.cloud.google.com/apis/credentials) in the *IAM and administration* section of the **Google Cloud Platform** dashboard and create a new project or choose the one you are already using for your current shenanigans.
+Click on create new service account and continue with the process. At the end you will get the option to generate a key, **we need this key so store it safely**. It's a json file with the following structure:
 ```json
 {
   "type": "",
@@ -53,7 +53,7 @@ While you are here, take a note of **the folder's ID**, the long set of characte
 
 ### Store credentials as GitHub secrets
 This action needs your GSA credentials to properly authenticate with Google and we don't want anybody to take a peek at them, right? Go to the **Secrets** section of your repo and add a new secret for your credentials. As per GitHub's recommendation, we will store any complex data (like your fancy JSON credentials) as a base64 encoded string.  
-You can encode jour `.json` file easily into a new `.txt` file using any bash terminal (just don't forget to change the placeholders with the real name of your credentials file and and the desired output):
+You can encode your `.json` file easily into a new `.txt` file using any bash terminal (just don't forget to change the placeholders with the real name of your credentials file and and the desired output):
 ```bash
 $ base64 CREDENTIALS_FILENAME.json > ENCODED_CREDENTIALS_FILENAME.txt
 ```
@@ -96,7 +96,7 @@ A link to the Drive folder.
 ## Usage Examples
 This section contains some useful examples.
 
-### Simple usage file workflow example
+### Simple file workflow example
 This a very simple workflow example that checks out the repo and uploads the `README.md` file to a Google Drive folder every time there is a push to master.
 ```yaml
 name: Store readme in Drive
@@ -115,7 +115,7 @@ jobs:
         uses: Jodebu/upload-to-drive@master
         with:
           target: README.md
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 
@@ -138,7 +138,7 @@ jobs:
         uses: Jodebu/upload-to-drive@master
         with:
           target: public
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
 ```
 
@@ -162,7 +162,7 @@ jobs:
         id: driveUpload
         with:
           target: public
-          credentials: secrets.<YOUR_DRIVE_CREDENTIALS>
+          credentials: ${{ secrets.DRIVE_CREDENTIALS }}
           folder: <YOUR_DRIVE_FOLDER_ID>
       # Send Telegram message
       - name: Send link to file
